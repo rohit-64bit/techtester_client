@@ -92,7 +92,7 @@ const Home = () => {
                 </section>
 
                 {/* Sales Section */}
-                <section id='sales' className='max-h-max min-h-screen bg-black px-5 md:px-10 lg:px-20 py-10 flex flex-col gap-10'>
+                <section id='sales' className='max-h-max min-h-screen bg-black px-5 md:px-10 lg:px-20 py-10 flex flex-col gap-10 justify-center '>
 
                     <h2 className='text-xl md:text-2xl text-[#F9C869] font-medium'>What we sell ?</h2>
 
@@ -145,7 +145,40 @@ const Home = () => {
 
                 </section>
 
-                <Rating name="read-only" value={3} readOnly />
+                {/* Testimonial Section */}
+
+                <section id='testimonials' className='px-5 md:px-10 lg:px-20 py-10 flex flex-col gap-10 min-h-screen items-center justify-center'>
+
+                    <h2 className='text-xl md:text-2xl font-medium text-black text-left w-full'>Hear from others</h2>
+
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full'>
+
+                        {
+                            Array(6).fill().map((_, index) => {
+                                return (
+
+                                    <div className='card-shadow p-5 rounded-xl w-full'>
+
+                                        <p className='font-medium'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta placeat accusamus harum voluptate voluptatem consequuntur aliquid labore rem! At, perferendis.</p>
+
+                                        <Rating name="read-only" value={3} readOnly className='mt-3' />
+
+                                        <div className='flex justify-between text-slate-400 mt-5'>
+
+                                            <p>John Doe</p>
+                                            <p>01 Jan 2024</p>
+
+                                        </div>
+
+                                    </div>
+
+                                )
+                            })
+                        }
+
+                    </div>
+
+                </section>
 
                 {/* Contact Section */}
                 <section id='contact' className='bg-black px-8 md:px-10 lg:px-20 py-10 flex flex-col md:flex-row gap-10 md:gap-0 justify-center items-center md:justify-between h-screen'>

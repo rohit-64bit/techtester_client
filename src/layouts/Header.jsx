@@ -12,10 +12,11 @@ const Header = () => {
     const [scrollPosition, setScrollPosition] = useState(0)
 
     const routes = [
-        { name: 'Home', path: '#home' },
-        { name: 'Sales', path: '#sales' },
-        { name: 'Services', path: '#services' },
-        { name: 'Contact Us', path: '#contact' }
+        { name: 'Home', path: '/#home' },
+        { name: 'Sales', path: '/#sales' },
+        { name: 'Services', path: '/#services' },
+        { name: 'Testimonials', path: '/#testimonials' },
+        { name: 'Contact Us', path: '/#contact' }
     ]
 
     useEffect(() => {
@@ -51,7 +52,7 @@ const Header = () => {
 
     return (
         <>
-            <header className={scrolling?'flex justify-between fixed w-screen z-10 top-0 items-center px-5 md:px-10 lg:px-20 py-5 bg-white duration-500':'flex justify-between fixed w-screen z-10 top-0 items-center px-5 md:px-10 lg:px-20 py-5 bg-white -translate-y-32 duration-500'}>
+            <header className={scrolling ? 'flex justify-between fixed w-screen z-10 top-0 items-center px-5 md:px-10 lg:px-20 py-5 bg-white duration-500' : 'flex justify-between fixed w-screen z-10 top-0 items-center px-5 md:px-10 lg:px-20 py-5 bg-white -translate-y-32 duration-500'}>
 
                 <div className='flex gap-4 items-center'>
                     <img src={Logo} alt="logo" className='w-14 md:w-16' />
@@ -66,7 +67,7 @@ const Header = () => {
                     {
                         routes.map((route, index) => {
                             return (
-                                <a className={location.hash === route.path ? 'text-lg bg-[#F9C869] text-black px-8 py-1 rounded-full font-medium transition-all duration-300' : 'text-lg text-[#F9C869] px-8 py-1 font-medium transition-all duration-300'} href={route.path} key={index}>{route.name}</a>
+                                <a className={location.hash === route.path.split('/')[1] ? 'text-lg bg-[#F9C869] text-black px-8 py-1 rounded-full font-medium transition-all duration-300' : 'text-lg text-[#F9C869] px-8 py-1 font-medium transition-all duration-300'} href={route.path} key={index}>{route.name}</a>
                             )
                         })
                     }
