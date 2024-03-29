@@ -105,9 +105,10 @@ const Home = () => {
                                         <img src={data.img} className='w-full object-contain' />
                                         <h2 className='text-xl md:text-2xl text-[#F9C869] font-medium'>{data.title}</h2>
                                         <p className='text-white text-sm'>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis voluptates facilis alias adipisci temporibus laboriosam sed excepturi sunt explicabo animi repudiandae mollitia officiis, facere sit sapiente? Odit, ipsa fuga. Necessitatibus!
+                                            {data.description}
                                         </p>
-                                        <a href="#contact" className='w-max flex items-center justify-around gap-2 px-10 py-2 rounded-lg outline outline-2 outline-[#F9C869] text-[#F9C869] hover:text-black hover:outline-black hover:bg-[#F9C869] transition-all ease-in-out duration-300'>
+
+                                        <a href="#contact" className='w-max flex items-center justify-around gap-2 px-10 py-2 rounded-lg outline outline-2 outline-[#F9C869] text-[#F9C869] hover:text-black hover:outline-black hover:bg-[#F9C869] transition-all ease-in-out duration-300 mt-5'>
 
                                             <div className='text-xl font-medium w-max'>Contact Us</div>
 
@@ -214,6 +215,8 @@ const Home = () => {
                         <input className='outline-none border-none px-4 py-3 bg-[#D9D9D9] font-medium rounded-xl text-lg' type="email" placeholder='Email' />
 
                         <input className='outline-none border-none px-4 py-3 bg-[#D9D9D9] font-medium rounded-xl text-lg' type="text" pattern="^(?:(?:\+|0{0,2})91(\s*|[\-])?|[0]?)?([6789]\d{2}([ -]?)\d{3}([ -]?)\d{4})$" placeholder="Contact No." />
+
+                        <textarea className='outline-none border-none px-4 py-3 bg-[#D9D9D9] font-medium rounded-xl text-lg' rows={4} placeholder='Write your query here' />
 
                         <button className='bg-[#F9C869] text-black text-lg rounded-xl font-medium w-[40%] py-2'>
                             Submit
