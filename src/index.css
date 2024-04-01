@@ -2,20 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    scroll-behavior: smooth;
+/* Custom CSS */
+
+@layer base {
+    
+    * {
+        font-family: 'Poppins', sans-serif;
+        scroll-behavior: smooth;
+    }
+
+    .custom-shadow {
+        box-shadow: 0 0 0 0 #F9C869;
+        transition: 0.3s ease-in-out all;
+    }
+
+    .custom-shadow:hover {
+        box-shadow: 0 0 20px 0 #F9C869;
+        transition: 0.3s ease-in-out all;
+    }
+
+    .card-shadow {
+        box-shadow: 0 0 20px 0 #00000025;
+    }
+
 }
 
-.custom-shadow{
-    box-shadow: 0 0 0 0 #F9C869;
-    transition: 0.3s ease-in-out all;
-}
+@layer components {
 
-.custom-shadow:hover{
-    box-shadow: 0 0 20px 0 #F9C869;
-    transition: 0.3s ease-in-out all;
-}
+    .custom-shadow {
+        box-shadow: 0 0 0 0 #F9C869;
+        transition: 0.3s ease-in-out all;
+    }
 
-.card-shadow{
-    box-shadow: 0 0 20px 0 #00000025;
+    .custom-shadow:hover {
+        box-shadow: 0 0 20px 0 #F9C869;
+        transition: 0.3s ease-in-out all;
+    }
+
+    .card-shadow {
+        box-shadow: 0 0 20px 0 #00000025;
+    }
+
 }
