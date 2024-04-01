@@ -1,0 +1,2 @@
+Create UI layouts for different admin pages with Modal of Create Update and Delete
+
