@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import ItemsComponent from './../../components/admin/Items';
 import { Modal } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { CLOUDINARY_URL, CLOUD_NAME, UPLOAD_PRESET } from '../../services/Cloudinary';
+import { SERVER_URL } from '../../services/Helpers';
 
 const Items = () => {
 
@@ -26,8 +28,62 @@ const Items = () => {
         setImgURL(URL.createObjectURL(e.target.files[0]))
     }
 
+    const handleAddItem = (e) => {
+        e.preventDefault()
+
+        const formData = new FormData()
+
+        formData.append('file', imgInput)
+        formData.append('upload_preset', UPLOAD_PRESET)
+        formData.append('cloud_name', CLOUD_NAME)
+
+        fetch(`${CLOUDINARY_URL}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.secure_url) {
+
+                    const itemData = {
+                        title: formInput.title,
+                        description: formInput.description,
+                        imgUrl: data.secure_url
+                    }
+
+                    fetch(`${SERVER_URL}item/create`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(itemData)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message)
+                                setFormInput({})
+                                setImgInput(null)
+                                setImgURL('')
+                                handleClose()
+                            } else {
+                                alert('Failed to Add Item')
+                            }
+                        })
+
+                } else {
+                    alert('Image Upload Failed')
+                }
+
+            })
+
+    }
+
     const [open, setOpen] = useState(false);
+
     const handleOpen = () => setOpen(true);
+
     const handleClose = () => setOpen(false);
 
     return (
@@ -50,29 +106,29 @@ const Items = () => {
                     aria-describedby="modal-modal-description"
                     className='flex justify-center items-center'
                 >
-                    <form className='p-10 bg-white flex flex-col gap-5 rounded-xl shadow-xl w-[30%]'>
+                    <form method='POST' onSubmit={handleAddItem} className='p-10 bg-white flex flex-col gap-5 rounded-xl shadow-xl w-[30%]'>
+                        {
 
-                        <label htmlFor="img-input" className='p-10 rounded-lg w-full text-slate-500 duration-300 hover:text-slate-800 hover:border-slate-500 border border-slate-300'>
+                            imgURL && imgInput ?
 
-                            {
-                                imgURL && imgInput ?
-                                    <>
-                                        <img src={imgURL} alt="" className='rounded-xl' />
-                                        <button type='button' onClick={e => {
-                                            setImgInput(null)
-                                            setImgURL('')
-                                        }} className='bg-red-400 text-white w-full py-2 rounded-xl mt-5'>Remove Image</button>
+                                <div className='p-10 rounded-lg w-full text-slate-500 duration-300 hover:text-slate-800 hover:border-slate-500 border border-slate-300'>
+                                    <img src={imgURL} alt="" className='rounded-xl' />
+                                    <button type='button' onClick={e => {
+                                        setImgInput(null)
+                                        setImgURL('')
+                                    }} className='bg-red-400 text-white w-full py-2 rounded-xl mt-5'>Remove Image</button>
+                                </div>
+                                :
+                                <label htmlFor="img-input" className='p-10 rounded-lg w-full text-slate-500 duration-300 hover:text-slate-800 hover:border-slate-500 border border-slate-300'>
 
-                                    </>
-                                    : <>
-                                        <input onChange={handleImgInput} id='img-input' type="file" accept='img/*' className='hidden' />
-                                        <div className='flex flex-col items-center justify-center gap-3 relative select-none '>
-                                            <CloudUploadIcon />  Click to Upload Image
-                                        </div>
-                                    </>
-                            }
+                                    <input onChange={handleImgInput} id='img-input' type="file" accept='img/*' className='hidden' />
+                                    <div className='flex flex-col items-center justify-center gap-3 relative select-none '>
+                                        <CloudUploadIcon />  Click to Upload Image
+                                    </div>
 
-                        </label>
+                                </label>
+
+                        }
 
                         <input name='title' onChange={onChange} value={formInput.title} type="text" className='w-full outline outline-[1.5px] outline-slate-300 focus:outline-slate-500 duration-300 rounded-lg py-2 px-4' placeholder='Enter Item Title' />
 
